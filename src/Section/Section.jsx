@@ -1,15 +1,22 @@
 import styled from 'styled-components';
 import { Container } from '../Container';
+import Form from '../Form/Form';
+
+const SectionWrapper = styled.section`
+	height: 500px;
+	transform: translateY(-200px);
+	background-color: #fff;
+	padding: 50px;
+	border-radius: 50px;
+	box-shadow: 0px 0px 39px 2px rgba(67, 67, 67, 0.214);
+`;
 
 const Section = () => {
-	const SectionWrapper = styled.section`
-		height: 500px;
-	`;
-
 	return (
 		<Container>
 			<SectionWrapper>
 				<h1>⛽ Расчет расхода топлива</h1>
+				<Form />
 			</SectionWrapper>
 		</Container>
 	);
