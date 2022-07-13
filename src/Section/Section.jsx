@@ -11,11 +11,15 @@ const SectionWrapper = styled.section`
 	box-shadow: 0px 0px 39px 2px rgba(67, 67, 67, 0.214);
 `;
 
+const H1 = styled.h1`
+	font-size: 28px;
+`;
+
 const Section = () => {
 	return (
 		<Container>
 			<SectionWrapper>
-				<h1>⛽ Расчет расхода топлива</h1>
+				<H1>⛽ Расчет расхода топлива</H1>
 				<Form />
 			</SectionWrapper>
 		</Container>

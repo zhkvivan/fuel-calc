@@ -1,31 +1,39 @@
 import { useState } from 'react';
 import styled from 'styled-components';
+import { primaryColor } from '../Globals';
 
 const FormWrapper = styled.div``;
 
 const FormRow = styled.div`
+	margin-top: 50px;
 	display: flex;
 	flex-direction: row;
 	justify-content: space-between;
+	align-items: stretch;
 `;
 
 const FormGroup = styled.div`
 	display: flex;
 	flex-direction: column;
-	justify-content: space-between;
-	width: 32%;
+	justify-content: flex-start;
+	width: 29%;
 `;
 
 const InputLabel = styled.span`
-	margin-bottom: 15px;
-	font-weight: bold;
+	/* margin-bottom: 15px; */
+	font-size: 14px;
+
+	@media (max-width: 715px) {
+		min-height: 36px;
+	}
 `;
 
 const SuggestionWrapper = styled.div`
 	display: flex;
 	flex-direction: row;
 	flex-wrap: wrap;
-	justify-content: space-evenly;
+	max-width: 90%;
+	/* justify-content: space-evenly; */
 	/* padding: 0 5px; */
 `;
 
@@ -38,10 +46,16 @@ const Suggestion = styled.span`
 `;
 
 const Input = styled.input`
+	font-size: 16px;
 	margin: 10px 0;
-	border: 1px solid #ced4da;
-	border-radius: 10px;
-	padding: 1rem;
+	border: none;
+	border-bottom: 1px solid #ced4da;
+	padding: 0.5rem 0.2rem;
+
+	&:focus-visible {
+		outline: none;
+		border-bottom: 1px solid ${primaryColor};
+	}
 
 	&::placeholder {
 		opacity: 0.5;
@@ -64,13 +78,23 @@ const Form = () => {
 
 	const priceSuggestion = [150, 160, 170, 180, 190, 200];
 	const consumptionSuggestion = [30, 35, 40, 45, 50, 55];
+	const milesSuggestion = [30, 50, 150, 300, 500, 1000];
 
 	return (
 		<FormWrapper>
 			<form>
 				<FormRow>
 					<FormGroup>
-						<InputLabel>💵 Цена топлива</InputLabel>
+						<InputLabel>💵 Цена топлива (в пенсах)</InputLabel>
+
+						<Input
+							value={price}
+							onChange={(e) => setPrice(e.target.value)}
+							type={'number'}
+							placeholder={'180'}
+							onFocus={(e) => (e.target.placeholder = '')}
+							onBlur={(e) => (e.target.placeholder = '180')}
+						/>
 						<SuggestionWrapper>
 							{priceSuggestion.map((number, index) => {
 								return (
@@ -83,17 +107,18 @@ const Form = () => {
 								);
 							})}
 						</SuggestionWrapper>
-						<Input
-							value={price}
-							onChange={(e) => setPrice(e.target.value)}
-							type={'number'}
-							placeholder={'180'}
-							onFocus={(e) => (e.target.placeholder = '')}
-							onBlur={(e) => (e.target.placeholder = '180')}
-						/>
 					</FormGroup>
 					<FormGroup>
 						<InputLabel>⏱ Расход (mpg)</InputLabel>
+
+						<Input
+							value={consumption}
+							onChange={(e) => setConsumption(e.target.value)}
+							type={'number'}
+							placeholder={'32'}
+							onFocus={(e) => (e.target.placeholder = '')}
+							onBlur={(e) => (e.target.placeholder = '32')}
+						/>
 						<SuggestionWrapper>
 							{consumptionSuggestion.map((number, index) => {
 								return (
@@ -106,14 +131,6 @@ const Form = () => {
 								);
 							})}
 						</SuggestionWrapper>
-						<Input
-							value={consumption}
-							onChange={(e) => setConsumption(e.target.value)}
-							type={'number'}
-							placeholder={'32'}
-							onFocus={(e) => (e.target.placeholder = '')}
-							onBlur={(e) => (e.target.placeholder = '32')}
-						/>
 					</FormGroup>
 					<FormGroup>
 						<InputLabel>🚘 Миль пройдено</InputLabel>
@@ -125,6 +142,18 @@ const Form = () => {
 							onFocus={(e) => (e.target.placeholder = '')}
 							onBlur={(e) => (e.target.placeholder = '100')}
 						/>
+						<SuggestionWrapper>
+							{milesSuggestion.map((number, index) => {
+								return (
+									<Suggestion
+										onClick={(e) => applyPlaceholderValue(e, setMiles)}
+										key={index}
+									>
+										{number}
+									</Suggestion>
+								);
+							})}
+						</SuggestionWrapper>
 					</FormGroup>
 				</FormRow>
 			</form>
