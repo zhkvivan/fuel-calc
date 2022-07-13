@@ -33,8 +33,6 @@ const SuggestionWrapper = styled.div`
 	flex-direction: row;
 	flex-wrap: wrap;
 	max-width: 90%;
-	/* justify-content: space-evenly; */
-	/* padding: 0 5px; */
 `;
 
 const Suggestion = styled.span`
@@ -80,82 +78,61 @@ const Form = () => {
 	const consumptionSuggestion = [30, 35, 40, 45, 50, 55];
 	const milesSuggestion = [30, 50, 150, 300, 500, 1000];
 
+	const FormBlock = ({ label, input, setter, placeholder, suggestionArr }) => {
+		return (
+			<FormGroup>
+				<InputLabel>{label}</InputLabel>
+				<Input
+					value={input}
+					onChange={(e) => setter(e.target.value)}
+					type={'number'}
+					placeholder={placeholder}
+					onFocus={(e) => (e.target.placeholder = '')}
+					onBlur={(e) => (e.target.placeholder = placeholder)}
+				/>
+				<SuggestionWrapper>
+					{suggestionArr.map((number, index) => {
+						return (
+							<Suggestion
+								onClick={(e) => applyPlaceholderValue(e, setter)}
+								key={index}
+							>
+								{number}
+							</Suggestion>
+						);
+					})}
+				</SuggestionWrapper>
+			</FormGroup>
+		);
+	};
+
 	return (
 		<FormWrapper>
 			<form>
 				<FormRow>
-					<FormGroup>
-						<InputLabel>💵 Цена топлива (в пенсах)</InputLabel>
-
-						<Input
-							value={price}
-							onChange={(e) => setPrice(e.target.value)}
-							type={'number'}
-							placeholder={'180'}
-							onFocus={(e) => (e.target.placeholder = '')}
-							onBlur={(e) => (e.target.placeholder = '180')}
-						/>
-						<SuggestionWrapper>
-							{priceSuggestion.map((number, index) => {
-								return (
-									<Suggestion
-										onClick={(e) => applyPlaceholderValue(e, setPrice)}
-										key={index}
-									>
-										{number}
-									</Suggestion>
-								);
-							})}
-						</SuggestionWrapper>
-					</FormGroup>
-					<FormGroup>
-						<InputLabel>⏱ Расход (mpg)</InputLabel>
-
-						<Input
-							value={consumption}
-							onChange={(e) => setConsumption(e.target.value)}
-							type={'number'}
-							placeholder={'32'}
-							onFocus={(e) => (e.target.placeholder = '')}
-							onBlur={(e) => (e.target.placeholder = '32')}
-						/>
-						<SuggestionWrapper>
-							{consumptionSuggestion.map((number, index) => {
-								return (
-									<Suggestion
-										onClick={(e) => applyPlaceholderValue(e, setConsumption)}
-										key={index}
-									>
-										{number}
-									</Suggestion>
-								);
-							})}
-						</SuggestionWrapper>
-					</FormGroup>
-					<FormGroup>
-						<InputLabel>🚘 Миль пройдено</InputLabel>
-						<Input
-							value={miles}
-							onChange={(e) => setMiles(e.target.value)}
-							type={'number'}
-							placeholder={'100'}
-							onFocus={(e) => (e.target.placeholder = '')}
-							onBlur={(e) => (e.target.placeholder = '100')}
-						/>
-						<SuggestionWrapper>
-							{milesSuggestion.map((number, index) => {
-								return (
-									<Suggestion
-										onClick={(e) => applyPlaceholderValue(e, setMiles)}
-										key={index}
-									>
-										{number}
-									</Suggestion>
-								);
-							})}
-						</SuggestionWrapper>
-					</FormGroup>
+					<FormBlock
+						label={'💵 Цена топлива (в пенсах)'}
+						input={price}
+						setter={setPrice}
+						placeholder={'180'}
+						suggestionArr={priceSuggestion}
+					/>
+					<FormBlock
+						label={'⏱ Расход (mpg)'}
+						input={consumption}
+						setter={setConsumption}
+						placeholder={'32'}
+						suggestionArr={consumptionSuggestion}
+					/>
+					<FormBlock
+						label={'🚘 Миль пройдено'}
+						input={miles}
+						setter={setMiles}
+						placeholder={'100'}
+						suggestionArr={milesSuggestion}
+					/>
 				</FormRow>
+				<FormRow></FormRow>
 			</form>
 		</FormWrapper>
 	);
