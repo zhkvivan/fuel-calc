@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import styled from 'styled-components';
 import { primaryColor } from '../Globals';
+import Button from '../Button/Button';
 
 const FormWrapper = styled.div``;
 
@@ -106,6 +107,16 @@ const Form = () => {
 		);
 	};
 
+	const sumbitHandler = (e) => {
+		e.preventDefault();
+		console.log('haha');
+	};
+
+	const resetHandler = (e) => {
+		e.preventDefault();
+		console.log('haha');
+	};
+
 	return (
 		<FormWrapper>
 			<form>
@@ -132,7 +143,10 @@ const Form = () => {
 						suggestionArr={milesSuggestion}
 					/>
 				</FormRow>
-				<FormRow></FormRow>
+				<FormRow>
+					<Button label={'Посчитать'} primary handler={sumbitHandler} />
+					<Button label={'Сбросить'} handler={resetHandler} />
+				</FormRow>
 			</form>
 		</FormWrapper>
 	);
