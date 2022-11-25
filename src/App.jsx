@@ -1,20 +1,20 @@
 import styled from 'styled-components';
 import './App.css';
-import { Section } from './Section';
+import Section from './Section/Section';
 import { primaryColor } from './Globals';
 
 const TopSection = styled.section`
-	height: 300px;
-	background-color: ${primaryColor};
+  height: 300px;
+  background-color: ${primaryColor};
 `;
 
 const App = () => {
-	return (
-		<>
-			<TopSection />
-			<Section />
-		</>
-	);
+  return (
+    <>
+      <TopSection />
+      <Section />
+    </>
+  );
 };
 
 export default App;
